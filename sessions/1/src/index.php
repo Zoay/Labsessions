@@ -5,10 +5,10 @@
 	<title>Creating a search</title>
 </head>
 <body>
-	<div id="wrapper">
+	<form>
 		<input type="text" name="s" placeholder="Search..." />
 		<input type="submit" value=">>" />
-	</div>
+	</form>
 	<div id="result"></div>
 </body>
 </html>
