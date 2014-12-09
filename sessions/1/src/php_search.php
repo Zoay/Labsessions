@@ -1,6 +1,4 @@
-`<?php
-
-$output = '';
+<?php
 
 if (isset($_POST['s'])) {
 	$search = $_POST['s'];
@@ -13,24 +11,26 @@ if (isset($_POST['s'])) {
 			OR    lastname LIKE CONCAT ('%', :lastname, '%')";
 
 	$stmt = $db->prepare($sql);
-	$stmt->bindValue(':firstname', $search, PDO::PARAM_STR);
-	$stmt->bindValue(':lastname', $search, PDO::PARAM_STR);
+	$stmt->bindParam(':firstname', $search, PDO::PARAM_STR);
+	$stmt->bindParam(':lastname', $search, PDO::PARAM_STR);
 	$stmt->execute();
 
-	$rows = $stmt->fetch(PDO::FETCH_ASSOC);
-	echo ' count ' . count($rows);
-	print_r($rows);
+	$output = '';
 
-	if (count($rows) != 0) {
-		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-			$firstname = $row['firstname'];
-			$lastname = $row['lastname'];
-			$output .= $firstname . ' ' . $lastname;
-		}
-	} else {
-		echo 'Element searched was not found...';
+	//Processing the result
+	while (($row = $stmt->fetch(PDO::FETCH_ASSOC)) != false) {
+		//print_r($row);
+		$fn = $row['firstname'];
+		$ln = $row['lastname'];
+
+		$output .= '<div>' . $fn . ' ' . $ln . '</div>';
 	}
-	echo $output;
+
+	if (strlen($output) == 0) {
+		$output .= 'User Not Found!';
+	}
+
+	print($output);
 	$stmt->closeCursor();
 }
 
