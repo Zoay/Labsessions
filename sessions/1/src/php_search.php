@@ -1,7 +1,7 @@
 <?php
 
-if (isset($_POST['s'])) {
-	$search = $_POST['s'];
+if (isset($_POST['qq'])) {
+	$search = $_POST['qq'];
 	$search = preg_replace("#[^a-z0-9]#i", "", $search);
 
 	include 'DB.php';
@@ -11,27 +11,32 @@ if (isset($_POST['s'])) {
 			OR    lastname LIKE CONCAT ('%', :lastname, '%')";
 
 	$stmt = $db->prepare($sql);
-	$stmt->bindParam(':firstname', $search, PDO::PARAM_STR);
-	$stmt->bindParam(':lastname', $search, PDO::PARAM_STR);
+	$stmt->bindValue(':firstname', $search, PDO::PARAM_STR);
+	$stmt->bindValue(':lastname', $search, PDO::PARAM_STR);
 	$stmt->execute();
 
 	$output = '';
+	$result = array();
+	$arr = array();
 
 	//Processing the result
 	while (($row = $stmt->fetch(PDO::FETCH_ASSOC)) != false) {
-		//print_r($row);
-		$fn = $row['firstname'];
-		$ln = $row['lastname'];
+		$firstname = $row['firstname'];
+		$lastname = $row['lastname'];
 
-		$output .= '<div>' . $fn . ' ' . $ln . '</div>';
+		//$output .= $firstname . ' ' . $lastname;
+		$arr['firstname'] = $firstname;
+		$arr['lastname'] = $lastname;
+
+		array_push($result, $arr);
 	}
 
-	if (strlen($output) == 0) {
-		$output .= 'User Not Found!';
-	}
+	/*if (strlen($output) == 0) {
+	$output .= 'No results found!';
+	}*/
 
-	print($output);
+	echo json_encode($result);
 	$stmt->closeCursor();
+	$stmt = NULL;
 }
-
 ?>
