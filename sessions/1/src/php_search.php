@@ -2,13 +2,13 @@
 
 if (isset($_POST['qq'])) {
 	$search = $_POST['qq'];
-	$search = preg_replace("#[^a-z0-9]#i", "", $search);
+	$search = preg_replace("#[^a-z0-9 ]#i", "", $search);
 
 	include 'DB.php';
 
 	$sql = "SELECT * FROM session1
 			WHERE firstname LIKE CONCAT ('%', :firstname, '%')
-			OR    lastname LIKE CONCAT ('%', :lastname, '%')";
+			OR  lastname LIKE CONCAT ('%', :lastname, '%')";
 
 	$stmt = $db->prepare($sql);
 	$stmt->bindValue(':firstname', $search, PDO::PARAM_STR);

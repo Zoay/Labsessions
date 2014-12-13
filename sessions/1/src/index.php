@@ -7,6 +7,10 @@
 	.wrapper{
 		width:50%;
 	}
+
+	#result{
+		margin-top: 15px;
+	}
 	</style>
 </head>
 <body>
@@ -14,12 +18,12 @@
 		<center>
 			<h2>Instant Search </h2>
 			<div>
-				<form method="post" action="">
+				<form method="post" action="" autocomplete="off">
 					<input type="text" name="qq" id="srch" size="50" placeholder="Search..." />
-					<!--<input type="submit" value="Search" />-->
+					<input type="submit" value="Search" />
 				</form>
 			</div>
-			<hr />
+
 			<div id="result"></div>
 		</center>
 	</div>
