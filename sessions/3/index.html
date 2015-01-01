@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Creating an mp3 player with HTML5</title>
+
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.min.css" />
+	<script type="text/javascript" src="js/jquery-1.11.2.js"></script>
+</head>
+<body>
+	<audio id="player">
+		<source src="../songs/Dark Horse.mp3" />
+	</audio>
+
+	<div id="slider">
+		<input type="range" id="sliderTime" min="0"value="0"/>
+		<span id="song-time"></span>
+	</div>
+
+	<div id="commands">
+		<button id="play">Play</button>
+		<button id="pause">Pause</button>
+		<button id="stop">Stop</button>
+		<button id="vup">Volume Up</button>
+		<button id="vdown">Volume Down</button>
+	</div>
+	<script type="text/javascript" src="js/app.core.js"></script>
+</body>
+</html>
