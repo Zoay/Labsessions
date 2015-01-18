@@ -1,5 +1,5 @@
 
-if (typeof musik === undefined) {
+if (typeof muzik === undefined) {
     var muzik = {};
 }
 
