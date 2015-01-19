@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Capital2Learn</string>
+    <string name="country_name">Enter a country name</string>
+    <string name="go_button">Show the capital!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
