@@ -3,11 +3,16 @@ if (typeof muzik === undefined) {
     var muzik = {};
 }
 
+var intv = 0;
 muzik = {
     play: function() {
         $('#play').on('playMusic', function() {
             $('#player')[0].play();
+            //$('#song-time').html(convert_milliseconds_to_min_and_seconds($('#player')[0].currentTime));
+            $('#sliderTime')[0].max = $('#player')[0].duration;
+            intv = setInterval(this.updateSlider, 100);
             console.log('Music is playing');
+
         });
 
         $('#play').on('click', function() {
@@ -18,8 +23,8 @@ muzik = {
     pause: function() {
         $('#pause').on('pauseMusic', function() {
             $('#player').trigger('pause');
-            this.updateSlider();
-            console.log('Music is in pause state');
+            clearInterval(intv);
+            console.log('Music is paused');
         });
 
         $('#pause').on('click', function() {
@@ -32,7 +37,8 @@ muzik = {
             $('#player').trigger('pause');
             $('#player')[0].currentTime = 0;
             $('#sliderTime')[0].value = 0;
-            console.log('Music is stopping');
+            clearInterval(intv);
+            console.log('Music is stopped');
         });
 
         $('#stop').on('click', function() {
@@ -53,7 +59,7 @@ muzik = {
             });
 
             $('#vup').on('click', function() {
-                console.log('increase the volume');
+                console.log('increasing the volume');
                 $('#vup').trigger('vup');
             });
         },
@@ -69,21 +75,19 @@ muzik = {
             });
 
             $('#vdown').on('click', function() {
-                console.log('decrease the volume');
+                console.log('decreasing the volume');
                 $('#vdown').trigger('vdown');
             });
         }
     },
     updateSlider: function() {
-        console.log('Updating slider value');
-        $('#sliderTime')[0].value = convert_milliseconds_to_min_and_seconds($('#player')[0].currentTime);
+        //console.log('Updating slider value');
+        $('#sliderTime')[0].value = $('#player')[0].currentTime;
+        $('#song-time').html(convert_milliseconds_to_min_and_seconds($('#player')[0].currentTime));
+        //console.log('slide-time value : ' + $('#sliderTime')[0].value);
     },
-
-    reposition: function() {
-        $('#sliderTime').on('change', function() {
-            console.log('Setting the current time with : ' + $('#sliderTime')[0].value);
-            //$('#player')[0].currentTime = $('#sliderTime')[0].value;
-        });
+    repeatCall: function() {
+        intv = setInterval(this.updateSlider, 100);
     }
 };
 
@@ -103,6 +107,13 @@ $(function() {
     muzik.volume.volumeDown();
     muzik.volume.volumeUp();
 
+    //
+    // Reposition the music when clicked on the slider
+    //////////////////////////////////////////////////
+    $('#sliderTime').on('change', function() {
+        console.log('Setting the current time with : ' + $('#sliderTime')[0].value);
+        $('#player')[0].currentTime = $('#sliderTime')[0].value;
+    });
 
-
+    muzik.repeatCall();
 });
