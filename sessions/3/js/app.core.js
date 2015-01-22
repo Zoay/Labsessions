@@ -99,9 +99,37 @@ var convert_milliseconds_to_min_and_seconds = function(ms) {
     return "Time Elapsed: " + sTime;
 };
 
+var HTMLPlaylistTitle = "<tr><td onclick='song_selected(%data%)'>";
+var HTMLPlaylistLink = "<b><i>%data%</i></b></td></tr>";
+
+var playlist = function() {
+    $.getJSON('../3/playlist.json', function(data, textStatus) {
+        //console.log('textStatus: ' + textStatus);
+        //console.log(data);
+        var songs = data.songs;
+        //console.log(songs);
+        $.each(songs, function(index, val) {
+            //console.log('For index : ' + index);
+            //console.log(val.title + '|' + val.filename + '|' + val.composer);
+            //var filename = HTMLPlaylistTitle.replace('%data%', val.filename);
+            var titleAndComposer = HTMLPlaylistLink.replace('%data%', val.title + ' by ' + val.composer);
+
+            var obj = "<tr><td onclick='song_selected(\"" + val.filename + "\")'>" + titleAndComposer;
+            $('#playlist tbody').append(obj);
+        });
+    });
+};
+
+var song_selected = function(filename) {
+    $('#player')[0].src = "../../One_Direction/" + filename;
+    $('.song-selected').html(filename.split('.mp3')[0]);
+    muzik.play();
+    //muzik.repeatCall();
+};
+
 // when the document (DOM) is ready
 $(function() {
-    muzik.play();
+    //muzik.play();
     muzik.pause();
     muzik.stopPlaying();
     muzik.volume.volumeDown();
@@ -116,4 +144,6 @@ $(function() {
     });
 
     muzik.repeatCall();
+    playlist();
+
 });

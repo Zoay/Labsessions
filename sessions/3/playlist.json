@@ -1,24 +1,34 @@
 {
 	"songs":[
 		{
-		"title" : "Problem",
-		"composer" : "Ariana Grande - ft. Iggy Azalea",
-		"filename" : "Problem.mp3"
+		"title" : "Forever Young",
+		"composer" : "One Direction",
+		"filename" : "One Direction - Forever Young ( Lyrics   Pictures ).mp3"
 		},
 		{
-		"title" : "Love Me Harder",
-		"composer" : "Ariana Grande - ft. The Weeknd",
-		"filename" : "Love Me Harder.mp3"
+		"title" : "Nobody Knows",
+		"composer" : "One Direction",
+		"filename" : "nobody knows - one direction.mp3"
 		},
 		{
-		"title" : "Dark Horse",
-		"composer" : "Katy Perry - feat. Juicy J",
-		"filename" : "Dark Horse.mp3"
+		"title" : "Rock Me",
+		"composer" : "One Direction",
+		"filename" : "Rock Me.mp3"
 		},
 		{
-		"title" : "Got Money",
-		"composer" : "Lil Wayne - ft. T-Pain",
-		"filename" : "Got Money.mp3"
+		"title" : "Stole My Heart",
+		"composer" : "One Direction",
+		"filename" : "Stole My Heart.mp3"
+		},
+		{
+		"title" : "Summer Love",
+		"composer" : "One Direction",
+		"filename" : "SUMMER LOVE.mp3"
+		},
+		{
+		"title" : "Taken",
+		"composer" : "One Direction",
+		"filename" : "Taken.mp3"
 		}
 	]
 }
