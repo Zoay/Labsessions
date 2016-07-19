@@ -79,8 +79,19 @@ class TweetExtractor:
 						elif isinstance(value, dict):
 							self.__second_level_extraction(lookup, None, value, data)
 
-
+class DataViz:
+    @staticmethod
+    def visualize(df, x_label, y_label, plot_title, color):
+        fig, ax = plt.subplots() # fig and one subplot
+        ax.tick_params(axis='x', labelsize=15)
+        ax.tick_params(axis='y', labelsize=10)
+        ax.set_xlabel(x_label, fontsize=15)
+        ax.set_ylabel(y_label, fontsize=15)
+        ax.set_title(plot_title, fontsize=15, fontweight='bold')
+        df.plot(ax=ax, kind='bar', color=color)
+        
 """ Taille du fichier au moment de l'analyse: 103, 807 Ko """
+#filename = os.path.join(os.getcwd(), 'data', 'twitter_data.json')
 filename = os.path.join(os.getcwd(), 'data', 'twitter_data_sample.json')
 data = open(filename, 'r')
 
@@ -126,9 +137,22 @@ tweets_df['lang'] = tweetExtractor.first_level_extraction(key=u'lang', tweets=tw
 tweets_df['country'] = tweetExtractor.second_level_extraction(first_level_key='place', key=u'country', tweets=tweets_data)
 
 print tweets_df.head()
+print tweets_df[:5]
 
+tweets_by_lang = tweets_df['lang'].value_counts()
+tweets_by_country = tweets_df['country'].value_counts()
 
-
+#print tweets_by_lang
+print 'plotting...'
+"""fig, ax = plt.subplots() # fig and one subplot
+ax.tick_params(axis='x', labelsize=15)
+ax.tick_params(axis='y', labelsize=10)
+ax.set_xlabel('Languages', fontsize=15)
+ax.set_ylabel('Numbers of tweets', fontsize=15)
+ax.set_title('Top 5 languages', fontsize=15, fontweight='bold')
+tweets_by_lang[:6].plot(ax=ax, kind='bar', color='red')"""
+DataViz.visualize(df=tweets_by_lang[:6], x_label='Languages', y_label='Numbers of tweets', plot_title='Top 5 Languages', color='red')
+DataViz.visualize(df=tweets_by_country[:6], x_label='Countries', y_label='Numbers of tweets', plot_title='Top 5 countries', color='blue')
 
 end = datetime.now()
 
